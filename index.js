@@ -1,9 +1,9 @@
 // Assignment 6
+
 let running = true; 
 
 const show = [
-    {
-        title: "Sons of Anarchy",
+    {   title: "Sons of Anarchy",
         creator: "Kurt Sutter", 
         isWatched: true,
     },
@@ -34,10 +34,8 @@ const show = [
 ];
 
 
-function addShow () {
-    let addTitle = prompt("Please write the title of the show you want to add"); 
-    let addCreator = prompt("Please write the name of the creator of the show"); 
-    show.push({title: addTitle, creator: addCreator}); 
+function addShow (addTitle, addCreator) {
+    show.push({title: addTitle, creator: addCreator, isWatched: false}); 
     alert(`You have now added ${addTitle} by ${addCreator} to your list`);
 }
 
@@ -45,10 +43,13 @@ function listShows () {
 return console.log(show); 
 }
 
-function markAsWatched () {
+function markAsWatched (title) {
+    let foundShow = show.find(show => show.title === title);
+    foundShow.isWatched = true; 
+    alert (`${title} is now marked as Watched`);
+    return console.log(foundShow); 
 
 }
-
 
 while (running) {
    const choice = prompt(`Tv-show tracker
@@ -60,15 +61,18 @@ while (running) {
 
 switch (choice) {
     case "1": 
-        (addShow());
+        let addTitle = prompt("Enter the title of the show you want to add"); 
+        let addCreator = prompt("Enter the name of the creator of the show"); 
+        addShow(addTitle, addCreator);
         break; 
     case "2":
         listShows();
         running = false; 
         break;
     case "3":
-        const title = prompt("Enter the title of the show to mark as watched:");
+        const title = prompt ("Enter the title of the show to mark as watched:");
         markAsWatched(title);
+        running = false; 
         break;
     case "4":
         alert("Goodbye!");
